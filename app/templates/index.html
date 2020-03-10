@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ current_user.username }}!</h1>
+
+    {% for file in files %}
+    <div style="display: flex;">
+    	<p>{{ file.filename }}</p>
+		<a href="{{ url_for('download', file_id=file.id) }}" target="blank"><button class='btn btn-default' style='margin-left: 35;'>Download</button></a>
+
+    </div>
+
+    
+    {% endfor %}
+
+{% endblock %}
