@@ -78,6 +78,8 @@ class ItemFile(db.Model):
             'filename': self.filename,
             'user_id': self.user_id,
             'creation_time': self.creation_time,
+            'file_description': self.file_description,
+            'platform': PLATFORMS[self.platform]
         }
 
     @property
@@ -88,3 +90,5 @@ class ItemFile(db.Model):
     def show_platform(self):
         if self.platform is None or self.platform == 'None':
             return ''
+        else:
+            return PLATFORMS[self.platform]
