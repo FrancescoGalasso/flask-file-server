@@ -37,8 +37,8 @@ if not DB_PATH.exists():
 	file_data_2 = "This is a test file 2 !!!".encode()	#bytes
 
 
-	item_file_1 = models.ItemFile(filename='test_file_1.txt', data=file_data_1, creation_time=datetime.utcnow(), modification_time=datetime.utcnow(), author=file_author)
-	item_file_2 = models.ItemFile(filename='test_file_2.txt', data=file_data_2, creation_time=datetime.utcnow(), modification_time=datetime.utcnow(), author=file_author)
+	item_file_1 = models.ItemFile(filename='test_file_1.txt', data=file_data_1, creation_time=datetime.utcnow(), modification_time=datetime.utcnow(), author=file_author, file_description='This is a test file to download')
+	item_file_2 = models.ItemFile(filename='test_file_2.txt', data=file_data_2, creation_time=datetime.utcnow(), modification_time=datetime.utcnow(), author=file_author, file_description='This is an another test file to download')
 	
 	db.session.add(item_file_1)
 	db.session.add(item_file_2)
