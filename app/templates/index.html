@@ -3,14 +3,28 @@
 {% block content %}
     <h1>Hi, {{ current_user.username }}!</h1>
 
-    {% for file in files %}
-    <div style="display: flex;">
-    	<p>{{ file.filename }}</p>
-		<a href="{{ url_for('download', file_id=file.id) }}" target="blank"><button class='btn btn-default' style='margin-left: 35;'>Download</button></a>
-
+    <div class='download-list'>
+    	<ul id='downloads_list'>
+    		{% for file in files %}
+    		<li>
+    			<div class='itemfile'>
+    				<div class='title'>
+    					{{ file.filename }}
+    				<div>
+    				<div class='bio'>
+    					<p>{{ file.file_description}}</p>
+    				</div>
+					<ul class='subdown'>
+						<a href="{{ url_for('download', file_id=file.id) }}" target="blank"><span class="glyphicon glyphicon-save" style='margin-left: 35;'></span></a>
+						<li style='margin-left: 35;'>{{file.str_time}}</li>
+						<li style='margin-left: 35;'>{{file.show_platform}}</li>
+					</ul>
+    			</div>
+    		</li>
+    		{% endfor %}
+    	</ul>
     </div>
-
     
-    {% endfor %}
+
 
 {% endblock %}

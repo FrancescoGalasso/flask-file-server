@@ -1,0 +1,29 @@
+.downloads-list {
+    padding: 25px 0 0;
+    margin-right: 440px;
+}
+
+#downloads_list {
+	list-style-type:none
+}
+
+.downloads-list ul {
+    list-style-image: none;
+    list-style-type: none;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+}
+
+ul.subdown {
+    margin-left: -40;
+    margin-bottom: 35;
+}
+
+ul.subdown li {
+	display:inline;
+    list-style-type: none;
+    font-size: 12px;
+    font-weight: 400;
+    color: #888;
+}
