@@ -4,12 +4,27 @@ from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
+# models.User
+ROLES = {
+    'admin': 0,
+    'tech_manager': 1,
+    'user': 2,
+    'guest': 3
+}
+
+# models.ItemFile
+PLATFORM = {
+    'win32': 'Windows x86',
+    'win64': 'Windows x64'
+}
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     item_file = db.relationship('ItemFile', backref='author', lazy='dynamic')
+    access = db.Column(db.Integer)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -19,6 +34,12 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def show_access(self):
+        return self.access
+
+    def is_admin(self):
+        return self.access == ROLES['admin']
 
     @property
     def serialized(self):
@@ -66,4 +87,3 @@ class ItemFile(db.Model):
     def show_platform(self):
         if self.platform is None:
             return ''
-
