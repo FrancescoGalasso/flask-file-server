@@ -13,7 +13,8 @@ ROLES = {
 }
 
 # models.ItemFile
-PLATFORM = {
+PLATFORMS = {
+    'None': None,
     'win32': 'Windows x86',
     'win64': 'Windows x64'
 }
@@ -85,5 +86,5 @@ class ItemFile(db.Model):
 
     @property
     def show_platform(self):
-        if self.platform is None:
+        if self.platform is None or self.platform == 'None':
             return ''

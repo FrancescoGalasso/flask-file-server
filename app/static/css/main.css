@@ -33,3 +33,21 @@ ul.subdown li {
     font-weight: 500;
     font-size: 1.65em;
 }
+
+.upload_div_platform{
+    margin-top: 20px;
+}
+
+.upload_div_platform p,
+.upload_div_platform select {
+    display: inline-block;
+}
+
+.upload_div_platform select{
+    margin-left: 35px;
+}
+
+.upload_div_description {
+    margin-top: 60px;
+}
+

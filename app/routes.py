@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app_file_server, db
 from app.forms import LoginForm, RegistrationForm
-from app.models import User, ItemFile
+from app.models import User, ItemFile, PLATFORMS
 from datetime import datetime
 
 import io
@@ -70,13 +70,18 @@ def upload():
 		return redirect(url_for('index'))
 	
 	if request.method == 'POST':
-		print('request: {}'.format(request))
 		file = request.files['inputFile']
+		result = request.form
 
-		newFile = ItemFile(filename=file.filename, data=file.read(), creation_time=datetime.utcnow(), modification_time=datetime.utcnow(), file_description='This is an uploaded file :)')
+		file_description = result['upload_description']
+		platform = result.get('upload_platform')
+
+		newFile = ItemFile(filename=file.filename, data=file.read(), creation_time=datetime.utcnow(), modification_time=datetime.utcnow(), file_description=file_description, platform=platform)
 		db.session.add(newFile)
 		db.session.commit()
-		return 'Saved ' + file.filename + ' into DB!'
+		# return 'Saved ' + file.filename + ' into DB!'
+		flash('Saved ' + file.filename + ' into DB!')
+		return redirect(url_for('index'))
 	else:
-		return render_template('upload.html')
+		return render_template('upload.html', platforms=PLATFORMS)
 

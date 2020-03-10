@@ -2,14 +2,32 @@
 
 {% block content %}
 		<div class='container'>
-			<h1>File Input</h1>
-			<form method='POST' action='/upload' enctype='multipart/form-data'>
+			<h1>File Upload</h1>
+			<form method='POST' action='/upload' enctype='multipart/form-data' form="upload_form">
 				<div class='form-group'>
-					<label for='inputFile'>File Input</label>
+					<label for='inputFile'>File Upload</label>
 					<input type='file' name='inputFile'>
+					<div class='upload_div_platform' style='float:left'>
+						<p>Choose a platform (if required)</p>
+						<select name='upload_platform'>
+							{% for platform in platforms %}
+								{% if platform == 'None' %}
+								<option selected="selected">{{platform}}</option>
+								{% else %}
+								<option>{{platform}}</option>
+								{% endif%}
+							{% endfor %}
+						</select>
+					</div>
+					<div class='upload_div_description'>
+						<p>File description</p>
+						<!-- <textarea name="upload_description" rows="4" cols="50" form="upload_form"></textarea> -->
+						<input type='text' name='upload_description'></input>
+					</div>
 				</div>
+				<br>
 				<button type='submit' class='btn btn-default'>Submit</button>
 			</form>
 		</div>
-		
+
 {% endblock %}
