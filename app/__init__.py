@@ -27,9 +27,9 @@ if not DB_PATH.exists():
 	db.create_all()
 
 	# create test_user
-	test_user = models.User(username='test', email='test@example.com', password_hash=generate_password_hash('test'), access=2)
+	test_user = models.User(username='test', email='test@example.com', password_hash=generate_password_hash('test'), role=2)
 	db.session.add(test_user)
-	admin_user = models.User(username='admin', email='admin@example.com', password_hash=generate_password_hash('admin'), access=0)
+	admin_user = models.User(username='admin', email='admin@example.com', password_hash=generate_password_hash('admin'), role=0)
 	db.session.add(admin_user)
 	db.session.commit()
 

@@ -31,7 +31,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     item_file = db.relationship('ItemFile', backref='author', lazy='dynamic')
-    access = db.Column(db.Integer)
+    role = db.Column(db.Integer)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -42,11 +42,11 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def show_access(self):
-        return self.access
+    def get_role(self):
+        return self.role
 
     def is_admin(self):
-        return self.access == ROLES['admin']
+        return self.role == ROLES['admin']
 
     @property
     def serialized(self):

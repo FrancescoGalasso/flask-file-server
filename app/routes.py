@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app_file_server, db
 from app.forms import LoginForm, RegistrationForm
-from app.models import User, ItemFile, PLATFORMS, TYPE_FILES
+from app.models import User, ItemFile, PLATFORMS, TYPE_FILES, ROLES
 from datetime import datetime
 
 import io
@@ -46,13 +46,29 @@ def register():
 	# if current_user.is_authenticated:
 	# 	return redirect(url_for('index'))
 	form = RegistrationForm()
-	if form.validate_on_submit():
-		user = User(username=form.username.data, email=form.email.data)
-		user.set_password(form.password.data)
-		db.session.add(user)
-		db.session.commit()
-		flash('Congratulations, you are now a registered user!')
-		return redirect(url_for('login'))
+
+	# populate *Select field role* with dynamic choice values with
+	# sorted ROLES dict by values
+	# e.g. roles_list: [('admin', 0), ('tech_manager', 1), ('user', 2), ('guest', 3)]
+	import operator
+	import collections
+	sorted_by_value = sorted(ROLES.items(), key=operator.itemgetter(1))
+	sorted_dict_by_values = collections.OrderedDict(sorted_by_value)
+	roles_list = [(k, v) for k, v in sorted_dict_by_values.items()]
+	reverted_roles_list = [(y, x) for x, y in roles_list]
+	form.role.choices = reverted_roles_list
+
+	if request.method == 'POST':
+		if form.validate_on_submit():
+			user = User(username=form.username.data, email=form.email.data, role=form.role.data)
+			user.set_password(form.password.data)
+			db.session.add(user)
+			db.session.commit()
+			flash('Congratulations, you are now a registered user!')
+			return redirect(url_for('login'))
+		else:
+			print('ENCOUNTERED SOME KIND OF ERROR')
+
 	return render_template('register.html', title='Register', form=form)
 
 @app_file_server.route('/download/<int:file_id>')
