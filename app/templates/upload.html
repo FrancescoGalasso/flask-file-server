@@ -7,7 +7,7 @@
 				<div class='form-group'>
 					<label for='inputFile'>File Upload</label>
 					<input type='file' name='inputFile'>
-					<div class='upload_div_platform' style='float:left'>
+					<div class='upload_container_select' style='float:left'>
 						<p>Choose a platform (if required)</p>
 						<select name='upload_platform'>
 							{% for platform in platforms %}
@@ -21,8 +21,19 @@
 					</div>
 					<div class='upload_div_description'>
 						<p>File description</p>
-						<!-- <textarea name="upload_description" rows="4" cols="50" form="upload_form"></textarea> -->
 						<input type='text' name='upload_description'></input>
+					</div>
+					<div class='upload_container_select'>
+						<p>Choose a platform (if required)</p>
+						<select name='upload_file_type'>
+							{% for file_type in file_types %}
+								{% if file_type == 'doc' %}
+								<option selected="selected">{{file_type}}</option>
+								{% else %}
+								<option>{{file_type}}</option>
+								{% endif%}
+							{% endfor %}
+						</select>
 					</div>
 				</div>
 				<br>

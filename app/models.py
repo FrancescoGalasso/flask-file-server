@@ -19,6 +19,12 @@ PLATFORMS = {
     'win64': 'Windows x64'
 }
 
+TYPE_FILES = {
+    'doc': 'Manual',
+    'prog': 'Program'    
+}
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -66,6 +72,7 @@ class ItemFile(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     file_description = db.Column(db.String(240))
     platform = db.Column(db.String(120))
+    file_type = db.Column(db.String(120))
 
     def __repr__(self):
         return '<ItemFile {}>'.format(self.filename)
@@ -79,7 +86,8 @@ class ItemFile(db.Model):
             'user_id': self.user_id,
             'creation_time': self.creation_time,
             'file_description': self.file_description,
-            'platform': PLATFORMS[self.platform]
+            'platform': PLATFORMS[self.platform],
+            'file_type': TYPE_FILES(self.file_type)
         }
 
     @property
@@ -87,8 +95,12 @@ class ItemFile(db.Model):
         return self.creation_time.strftime('%B %d %Y')
 
     @property
-    def show_platform(self):
+    def get_file_platform(self):
         if self.platform is None or self.platform == 'None':
             return ''
         else:
             return PLATFORMS[self.platform]
+
+    @property
+    def get_file_type(self):
+        return TYPE_FILES(self.file_type)

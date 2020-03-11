@@ -34,20 +34,24 @@ ul.subdown li {
     font-size: 1.65em;
 }
 
-.upload_div_platform{
+.upload_container_select{
     margin-top: 20px;
 }
 
-.upload_div_platform p,
-.upload_div_platform select {
+.upload_container_select p,
+.upload_container_select select {
     display: inline-block;
 }
 
-.upload_div_platform select{
+.upload_container_select select{
     margin-left: 35px;
 }
 
 .upload_div_description {
     margin-top: 60px;
+}
+
+.file_header{
+    font-weight: bold;
 }
 

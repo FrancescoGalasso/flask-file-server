@@ -1,30 +1,64 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ current_user.username }}!</h1>
+	<h1>Hi, {{ current_user.username }}!</h1>
 
-    <div class='download-list'>
-    	<ul id='downloads_list'>
-    		{% for file in files %}
-    		<li>
-    			<div class='itemfile'>
-    				<div class='title'>
-    					<p class='p_title'>{{ file.filename }}</p>
-    				<div>
-    				<div class='bio'>
-    					<p>{{ file.file_description}}</p>
-    				</div>
-					<ul class='subdown'>
-						<a href="{{ url_for('download', file_id=file.id) }}" target="blank"><span class="glyphicon glyphicon-save" style='margin-left: 35;'></span></a>
-						<li style='margin-left: 35;'>{{file.str_time}}</li>
-						<li style='margin-left: 35;'>{{file.show_platform}}</li>
-					</ul>
-    			</div>
-    		</li>
-    		{% endfor %}
-    	</ul>
-    </div>
-    
+	
+
+<div class="container-fluid">
+  <div class="row">
+	<div class="col-sm-6" name='col_prog_files'>
+		<h2 class='file_header'>Software</h2>
+		<div class='download-list'>
+			<ul id='downloads_list'>
+				{% for prog_file in prog_files %}
+				<li>
+					<div class='itemfile'>
+						<div class='title'>
+							<p class='p_title'>{{ prog_file.filename }}</p>
+						<div>
+						<div class='bio'>
+							<p>{{ prog_file.file_description}}</p>
+						</div>
+						<ul class='subdown'>
+							<a href="{{ url_for('download', file_id=prog_file.id) }}" target="blank"><span class="glyphicon glyphicon-save" style='margin-left: 35;'></span></a>
+							<li style='margin-left: 35;'>{{prog_file.str_time}}</li>
+							<li style='margin-left: 35;'>{{prog_file.get_file_platform}}</li>
+						</ul>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="col-sm-6" name='col_doc_files'>
+		<h2 class='file_header'>Manuals</h2>
+		<div class='download-list'>
+			<ul id='downloads_list'>
+				{% for doc_file in doc_files %}
+				<li>
+					<div class='itemfile'>
+						<div class='title'>
+							<p class='p_title'>{{ doc_file.filename }}</p>
+						<div>
+						<div class='bio'>
+							<p>{{ doc_file.file_description}}</p>
+						</div>
+						<ul class='subdown'>
+							<a href="{{ url_for('download', file_id=doc_file.id) }}" target="blank"><span class="glyphicon glyphicon-save" style='margin-left: 35;'></span></a>
+							<li style='margin-left: 35;'>{{doc_file.str_time}}</li>
+							<li style='margin-left: 35;'>{{doc_file.get_file_platform}}</li>
+						</ul>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+	
 
 
 {% endblock %}
