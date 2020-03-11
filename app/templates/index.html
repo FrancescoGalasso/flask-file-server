@@ -24,6 +24,9 @@
 							<a href="{{ url_for('download', file_id=prog_file.id) }}" target="blank"><span class="glyphicon glyphicon-save" style='margin-left: 35;'></span></a>
 							<li style='margin-left: 35;'>{{prog_file.str_time}}</li>
 							<li style='margin-left: 35;'>{{prog_file.get_file_platform}}</li>
+							{% if current_user.is_admin() %}
+							<a href="{{ url_for('delete', file_id=prog_file.id) }}" target="blank" onclick="return confirm('Are you to delete the selected file?');"><span class="glyphicon glyphicon-erase" style='margin-left: 35;'></span></a>
+							{% endif %}
 						</ul>
 					</div>
 				</li>
@@ -48,6 +51,9 @@
 							<a href="{{ url_for('download', file_id=doc_file.id) }}" target="blank"><span class="glyphicon glyphicon-save" style='margin-left: 35;'></span></a>
 							<li style='margin-left: 35;'>{{doc_file.str_time}}</li>
 							<li style='margin-left: 35;'>{{doc_file.get_file_platform}}</li>
+							{% if current_user.is_admin() %}
+							<a href="{{ url_for('delete', file_id=doc_file.id) }}" target="blank" onclick="return confirm('Are you to delete the selected file?');"><span class="glyphicon glyphicon-erase" style='margin-left: 35;'></span></a>
+							{% endif %}
 						</ul>
 					</div>
 				</li>

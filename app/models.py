@@ -87,7 +87,7 @@ class ItemFile(db.Model):
             'creation_time': self.creation_time,
             'file_description': self.file_description,
             'platform': PLATFORMS[self.platform],
-            'file_type': TYPE_FILES(self.file_type)
+            'file_type': TYPE_FILES[self.file_type]
         }
 
     @property

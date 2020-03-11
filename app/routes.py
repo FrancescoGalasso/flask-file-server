@@ -12,8 +12,8 @@ import io
 @app_file_server.route('/index')
 @login_required
 def index():
-	doc_files = ItemFile.query.filter_by(file_type='doc')
-	prog_files = ItemFile.query.filter_by(file_type='prog')
+	doc_files = ItemFile.query.filter_by(file_type='doc').order_by('filename').all()
+	prog_files = ItemFile.query.filter_by(file_type='prog').order_by('filename').all()
 	return render_template('index.html', doc_files=doc_files, prog_files=prog_files)
 
 
@@ -92,3 +92,16 @@ def upload():
 	else:
 		return render_template('upload.html', platforms=PLATFORMS, file_types=TYPE_FILES)
 
+
+@app_file_server.route('/delete/<int:file_id>')
+@login_required
+def delete(file_id):
+	if not current_user.is_admin():
+		return redirect(url_for('index'))
+	else:
+		obj_to_del = ItemFile.query.filter_by(id=file_id).first()
+		db.session.delete(obj_to_del)
+		db.session.commit()
+
+		flash('Deleted ' + obj_to_del.filename + ' !')
+		return redirect(url_for('index'))
